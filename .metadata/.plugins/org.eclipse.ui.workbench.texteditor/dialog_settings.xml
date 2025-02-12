@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="true"/>
+	<list key="searchhistory">
+		<item value="approvalList"/>
+		<item value="createPostAjax"/>
+		<item value="반려"/>
+		<item value="부서 문서"/>
+		<item value="부서문서함"/>
+		<item value="list"/>
+		<item value="selectEmployeeList"/>
+		<item value="modal"/>
+		<item value="messageModal"/>
+		<item value="mod"/>
+		<item value=".mod"/>
+		<item value="element."/>
+		<item value=".message"/>
+		<item value="modal2"/>
+		<item value="bootstrap"/>
+	</list>
+	<list key="replacehistory">
+		<item value="modal2"/>
+		<item value="messageModal2"/>
+		<item value=".mod"/>
+	</list>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="signVOListD"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="signVOListD"/>
+			<item value="currentPage"/>
+			<item value=" // 데이터 확인&#x0A;    if (chartList == null || chartList.isEmpty()) {&#x0A;        log.error(&quot;차트 데이터가 비어있습니다.&quot;);&#x0A;    } else {&#x0A;        log.info(&quot;차트 데이터: &quot; + chartList);&#x0A;    }"/>
+			<item value="chartList"/>
+			<item value="listAjax"/>
+			<item value="signVOList5"/>
+			<item value="부서"/>
+			<item value="부서no"/>
+			<item value="deptNo"/>
+			<item value="조직도"/>
+		</list>
+		<list key="replacehistory">
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="785"/>
+		<item key="DIALOG_Y_ORIGIN" value="222"/>
+		<item key="DIALOG_WIDTH" value="322"/>
+		<item key="DIALOG_HEIGHT" value="391"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+</section>

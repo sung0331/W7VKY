@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.websocketalarm.mapper.AlarmMapper">
+	
+	<insert id="saveAlarm" parameterType="kr.or.ddit.websocketalarm.vo.AlarmVO">
+		INSERT INTO ALARM (
+        ALARM_NO,
+        EMP_NO,
+        ALARM_TYPE,
+        ALARM_MESSAGE,
+        ALARM_STATUS,
+        CREATED_AT,
+        LINK_URL,
+        EMP_NAME
+    )
+    VALUES (
+        ALARM_SEQ.NEXTVAL,  
+        #{empNo},
+        #{alarmType},
+        #{alarmMessage},
+        #{alarmStatus},
+        SYSDATE,
+        #{linkUrl},
+        #{empName}
+    )
+	</insert>
+	
+	
+	<select id="alarmList" parameterType="map">
+		
+	
+	
+	</select>
+
+</mapper>

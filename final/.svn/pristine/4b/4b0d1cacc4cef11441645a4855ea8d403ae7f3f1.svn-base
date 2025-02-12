@@ -1,0 +1,10 @@
+package kr.or.ddit.websocketalarm.service;
+
+import kr.or.ddit.websocketalarm.vo.AlarmVO;
+
+public interface AlarmService {
+
+	int saveAlarm(AlarmVO alarm);
+
+
+}

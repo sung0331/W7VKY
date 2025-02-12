@@ -1,0 +1,83 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>쪽지 보내기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<jsp:include page="./include/header.jsp"></jsp:include>
+<body>
+    
+    <form id="sendMessageForm" action="${pageContext.request.contextPath}/message/send" method="post">
+        <div>
+            <label for="receiver">수신자:</label>
+            <input type="text" id="receiver" name="receiverEmpId" value="${param.receiverId}" readonly>
+        </div>
+        <div>
+            <label for="content">내용:</label>
+            <textarea id="content" name="content" rows="5" cols="30" required></textarea>
+        </div>
+        <div>
+            <button type="submit">보내기</button>
+        </div>
+    </form>
+</body>
+<script>
+    document.getElementById("sendMessageForm").addEventListener("submit", function (e) {
+        e.preventDefault(); // 기본 폼 제출 방지
+
+        const formData = new FormData(this);
+
+        fetch("/message/send", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => {
+                if (response.redirected) {
+                    // 리다이렉트 URL 처리
+                    window.location.href = response.url;
+                } else if (!response.ok) {
+                    throw new Error("메시지 전송 실패");
+                }
+            })
+            .catch(error => {
+                alert("오류 발생: " + error.message);
+            });
+    });
+</script>
+</html>

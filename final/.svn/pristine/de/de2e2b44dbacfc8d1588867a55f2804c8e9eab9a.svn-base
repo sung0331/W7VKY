@@ -1,0 +1,19 @@
+package kr.or.ddit.personnel.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.extern.slf4j.Slf4j;
+
+@RequestMapping("/personnel")
+@Controller
+@Slf4j
+public class OrganizationChartController {
+
+	@GetMapping("/organizationChart")
+	public String organizationChart() {
+		
+		return "personnel/organizationChart";
+	}
+}

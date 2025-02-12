@@ -1,0 +1,57 @@
+package kr.or.ddit.att.service.Impl;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.att.mapper.AnnualMapper;
+import kr.or.ddit.att.service.AnnualService;
+import kr.or.ddit.att.vo.AnnualListVO;
+import kr.or.ddit.att.vo.AttendanceCodeVO;
+
+@Service
+public class AnnualServiceImpl implements AnnualService {
+	
+	@Autowired
+	AnnualMapper annualMapper;
+
+	@Override
+	public List<AnnualListVO> getList(Map<String, Object> map) {
+		return annualMapper.getList(map);
+	}
+
+	@Override
+	public int getTotal(Map<String, Object> map) {
+		return annualMapper.getTotal(map);
+	}
+
+	@Override
+	public List<AttendanceCodeVO> getAttendanceCode() {
+		return annualMapper.getAttendanceCode();
+	}
+
+	@Override
+	public int annualSignUp(AnnualListVO annualSingUp) {
+		return annualMapper.annualSignUp(annualSingUp);
+	}
+
+	@Override
+	public int getEmpAnnual(int empNo) {
+		return annualMapper.getEmpAnnual(empNo);
+	}
+
+	@Override
+	public List<AnnualListVO> getListAll(Map<String, Object> map) {
+		return annualMapper.getListAll(map);
+	}
+
+	@Override
+	public int getAllTotal(Map<String, Object> map) {
+		return annualMapper.getAllTotal(map);
+	}
+	
+	
+
+}

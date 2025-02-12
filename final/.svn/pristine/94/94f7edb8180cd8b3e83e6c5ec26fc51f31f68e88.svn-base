@@ -1,0 +1,98 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주소록</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .search-bar input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+        .address-list {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .address-list th, .address-list td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .address-list th {
+            background-color: #f4f4f4;
+        }
+        .send-button {
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .send-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>주소록</h1>
+        <form class="search-bar" action="/address/search" method="get">
+            <input type="text" name="keyword" placeholder="이름 또는 ID 검색" required>
+            <button type="submit">검색</button>
+        </form>
+
+        <table class="address-list">
+            <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>직원 ID</th>
+                    <th>프로필</th>
+                    <th>작업</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 서버에서 전달된 주소록 데이터를 반복문으로 출력 -->
+                <c:forEach var="address" items="${addresses}">
+                    <tr>
+                        <td>${address.empName}</td>
+                        <td>${address.empId}</td>
+                        <td><img src="${address.empProfile}" alt="프로필 이미지" width="50" height="50"></td>
+                        <td>
+                            <a href="/message/send/form?receiverId=${address.empId}" class="send-button">쪽지 보내기</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

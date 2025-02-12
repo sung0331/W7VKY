@@ -1,0 +1,31 @@
+package kr.or.ddit.websocket;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AddressServiceImpl implements AddressService {
+    private final AddressMapper addressMapper;
+
+    @Autowired
+    public AddressServiceImpl(AddressMapper addressMapper) {
+        this.addressMapper = addressMapper;
+    }
+
+    @Override
+    public List<AddressDto> getAllAddresses() {
+        return addressMapper.getAllAddresses();
+    }
+
+    @Override
+    public AddressDto getAddressById(String empId) {
+        return addressMapper.getAddressById(empId);
+    }
+
+    @Override
+    public List<AddressDto> searchAddresses(String keyword) {
+        return addressMapper.searchAddresses(keyword);
+    }
+}

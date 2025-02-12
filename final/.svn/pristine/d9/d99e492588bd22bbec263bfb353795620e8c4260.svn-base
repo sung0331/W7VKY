@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.workspace.mapper.FileStorageMapper">
+
+	<select id="list" parameterType="kr.or.ddit.workspace.vo.FileStorageVO" resultMap="fileStorageMap">
+		SELECT *
+		FROM (
+			SELECT ROW_NUMBER() OVER (ORDER BY FG.FILE_REG_DATE DESC) AS RNUM
+				, FG.FILE_REG_DATE
+				, FD.FILE_SN, FD.FILE_ORIGINAL_NAME, FD.FILE_SAVE_NAME, FD.FILE_SAVE_LOCATE
+				, FD.FILE_SIZE, FD.FILE_EXT, FD.FILE_MIME, FD.FILE_FANCYSIZE
+				, TO_TIMESTAMP(FD.FILE_SAVE_DATE, 'YYYY-MM-DD HH24:MI:SS') AS FILE_SAVE_DATEE
+				, FD.FILE_SAVE_DATE
+			FROM FILE_GROUP FG
+				INNER JOIN FILE_DETAIL FD
+				ON FD.FILE_GROUP_NO = FG.FILE_GROUP_NO
+		)F
+		WHERE RNUM BETWEEN ( #{currentPage} * 10 )-( 10- 1 )
+		AND (#{currentPage} * 10)
+
+	</select>
+
+	<select id="getTotal" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM FILE_GROUP FG
+		INNER JOIN FILE_DETAIL FD
+		ON FD.FILE_GROUP_NO = FG.FILE_GROUP_NO
+
+	</select>
+	
+	<insert id="insert" parameterType="kr.or.ddit.workspace.vo.FileStorageVO">
+         INSERT INTO file_storage (
+			    FILE_STORAGE_NO
+         <if test="fileGroupNo != null and fileGroupNo !='' ">
+				,FILE_GROUP_NO
+		</if>
+			    ,EMP_NO
+			) VALUES ( file_storage_seq.NEXTVAL
+					<if test="fileGroupNo != null and fileGroupNo !='' ">
+					,#{fileGroupNo}
+					</if>		
+			         ,  4 ) 
+						
+	
+	
+	
+	</insert>
+
+
+	<resultMap type="kr.or.ddit.workspace.vo.FileStorageVO"
+		id="fileStorageMap">
+	<result property="fileGroupNo" column="FILE_GROUP_NO"/>
+<result property="fileStorageNo" column="FILE_STORAGE_NO"/>
+<result property="empNo" column="EMP_NO"/>
+		<association property="fileGroupVO"
+			resultMap="fileGroupMap"></association>
+	</resultMap>
+	<resultMap type="kr.or.ddit.file.vo.FileGroupVO"
+		id="fileGroupMap">
+		<result property="fileGroupNo" column="FILE_GROUP_NO" />
+		<result property="fileRegDate" column="FILE_REG_DATE" />
+		<collection property="fileDetailVOList"
+			resultMap="fileDetailMap"></collection>
+	</resultMap>
+	<resultMap type="kr.or.ddit.file.vo.FileDetailVO"
+		id="fileDetailMap">
+		<result property="fileSn" column="FILE_SN" />
+		<result property="fileGroupNo" column="FILE_GROUP_NO" />
+		<result property="fileOriginalName" column="FILE_ORIGINAL_NAME" />
+		<result property="fileSaveName" column="FILE_SAVE_NAME" />
+		<result property="fileSaveLocate" column="FILE_SAVE_LOCATE" />
+		<result property="fileSize" column="FILE_SIZE" />
+		<result property="fileExt" column="FILE_EXT" />
+		<result property="fileMime" column="FILE_MIME" />
+		<result property="fileFancysize" column="FILE_FANCYSIZE" />
+		<result property="fileSaveDate" column="FILE_SAVE_DATE" />
+		<result property="fileDowncount" column="FILE_DOWNCOUNT" />
+
+	</resultMap>
+
+</mapper>

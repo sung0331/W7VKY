@@ -1,0 +1,16 @@
+package kr.or.ddit.workspace.service;
+
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.workspace.vo.WorkSpaceVO;
+
+public interface WorkSpaceService {
+
+	public int getTotal(Map<String, Object> map);
+
+	public List<WorkSpaceVO> myWorklist(Map<String, Object> map);
+
+	public WorkSpaceVO projTotal(int deptNo);
+
+}

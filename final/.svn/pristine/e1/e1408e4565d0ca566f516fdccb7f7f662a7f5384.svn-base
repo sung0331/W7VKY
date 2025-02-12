@@ -1,0 +1,22 @@
+package kr.or.ddit.websocketalarm.service.Impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.websocketalarm.mapper.AlarmMapper;
+import kr.or.ddit.websocketalarm.service.AlarmService;
+import kr.or.ddit.websocketalarm.vo.AlarmVO;
+
+@Service
+public class AlarmServiceImpl implements AlarmService {
+
+	@Autowired
+	AlarmMapper alarmMapper;
+	
+	@Override
+	public int saveAlarm(AlarmVO alarm) {
+		return alarmMapper.saveAlarm(alarm);
+	}
+
+
+}

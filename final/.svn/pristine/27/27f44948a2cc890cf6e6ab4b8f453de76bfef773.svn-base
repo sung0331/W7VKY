@@ -1,0 +1,12 @@
+package kr.or.ddit.websocketalarm.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import kr.or.ddit.websocketalarm.vo.AlarmVO;
+
+@Mapper
+public interface AlarmMapper {
+
+	int saveAlarm(AlarmVO alarm);
+
+}

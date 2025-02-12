@@ -1,0 +1,177 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>받은 쪽지함</title>
+    <style>
+        /* CSS 코드 */
+        .message-container {
+            width: 90%;
+            margin: 0 auto;
+            margin-top: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .message-container h1 {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .message-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .message-table th,
+        .message-table td {
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .message-table th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .message-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .message-table tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .message-table td {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .delete-btn,
+        .view-btn {
+            display: inline-block;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #dc3545;
+        }
+
+        .view-btn:hover {
+            background-color: #17a2b8;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            color: #007bff;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .pagination a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        @media screen and (max-width: 768px) {
+            .message-container {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .message-table th,
+            .message-table td {
+                font-size: 12px;
+            }
+
+            .delete-btn,
+            .view-btn {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .pagination a {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<jsp:include page="./include/header.jsp"></jsp:include>
+<body>
+<div class="message-container">
+    <h1>받은 쪽지함</h1>
+    <table class="message-table">
+        <thead>
+            <tr>a
+                <th>보낸 사람</th>
+                <th>내용</th>
+                <th>보낸 날짜</th>
+                <th>상태</th>
+                <th>작업</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="message" items="${messages}">
+                <tr>
+                    <td>${message.senderName}</td>
+                    <td>${message.content}</td>
+                    <td>${message.sendTime}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${message.readStatus == 'N'}">읽지 않음</c:when>
+                            <c:otherwise>읽음</c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <form action="${pageContext.request.contextPath}/message/delete" method="post" style="display: inline;">
+                            <input type="hidden" name="messageId" value="${message.messageId}">
+                            <button type="submit" class="delete-btn">삭제</button>
+                        </form>
+                        <a href="${pageContext.request.contextPath}/message/view?messageId=${message.messageId}" class="view-btn">보기</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+
+    <!-- 페이징 처리 -->
+    <div class="pagination">
+        <c:if test="${!empty pagination}">
+            <c:forEach var="page" items="${pagination}">
+                <a href="?page=${page}">${page}</a>
+            </c:forEach>
+        </c:if>
+    </div>
+</div>
+</body>
+</html>

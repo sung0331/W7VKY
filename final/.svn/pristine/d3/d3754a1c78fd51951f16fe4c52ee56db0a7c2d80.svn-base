@@ -1,0 +1,19 @@
+package kr.or.ddit.workspace.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import kr.or.ddit.workspace.vo.WorkSpaceVO;
+
+@Mapper
+public interface WorkSpaceMapper {
+
+	public int getTotal(Map<String, Object> map);
+
+	public List<WorkSpaceVO> myWorklist(Map<String, Object> map);
+
+	public WorkSpaceVO projTotal(int deptNo);
+
+}

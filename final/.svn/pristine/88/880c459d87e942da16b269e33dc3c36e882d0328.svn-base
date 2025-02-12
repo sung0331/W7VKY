@@ -1,0 +1,715 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@page import="java.util.Date" %>
+<%@page import="java.text.SimpleDateFormat" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+
+<link rel="stylesheet" href="/dash/css/bootstrap.min.css">
+<link rel="stylesheet" href="/dash/css/style.css">
+<link href="img/favicon.ico" rel="icon">
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap"
+	rel="stylesheet">
+
+
+
+
+
+<!-- Icon Font Stylesheet -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+	rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+	rel="stylesheet" />
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<jsp:include page="../../include/preScript.jsp"></jsp:include>
+<style>
+html {
+  scroll-behavior: smooth;
+}
+ul li {
+margin:0 ; 
+padding:0 ;
+
+
+}
+.content-area{
+padding: 6px !important;
+}
+.filecontainer{
+display: flex;
+
+}
+.file{
+width: 80%;
+}
+.fileside{
+width: 18%;
+height:100vh;
+border-right: 1px solid #c5c5c5;
+}
+.fileside > ul {
+
+list-style: none;
+margin-top:2%;
+    padding-left: 0 !important;
+    vertical-align:middle;
+    cursor: pointer;
+}
+h3{
+margin:30px !important;
+margin-left:30px !important; 
+font-weight: normal !important;
+cursor: pointer;
+
+}
+.fileside > ul > li {
+padding:40px;
+height: 60px;
+  display: flex;
+  align-items: center;  /* 세로 중앙 정렬 */
+  align-content: center;
+  justify-content: flex-start;  /* 수평 중앙 정렬 (필요시 조정) */
+  font-weight:600;
+  font-size: 17px;
+  color:#555454;
+}
+
+.fileside > ul > li:hover{
+background-color: #f1f1f1;
+color: #009CFF !important;
+
+}
+.fa-3x {
+font-size: 2em !important;
+padding-right:10px;
+}
+.table{
+margin-top:1%;
+text-align: center;
+}
+tr:hover{
+background-color: #f1f1f1;
+
+}
+ tr{
+height:70px;
+border:white !important;
+  width: 100%;
+    vertical-align: middle; /* 세로 중앙 정렬 */
+
+}
+thead{
+border:white !important;
+
+}
+.telft{
+text-align: left;
+font-weight:bold;
+cursor: pointer;
+width: 700px;
+}
+select{
+outline: none !important;
+border:none !important;
+background-color:#f1f1f1; 
+padding:10px;
+border-radius:10px;
+margin-left: 30px !important;
+width: 150px;
+}
+.fa-solid{
+padding:10px;
+color:green;
+font-size: 1.5em;
+}
+.fa-file-pdf{
+
+color:#db5353;
+}
+.fa-file-zipper{
+color:orange;
+}
+.icon{
+color:#009CFF !important;
+font-size: 1.5em;
+margin-right: 18px;
+}
+.iconc{
+margin-right: 28px;
+
+}
+.iconh{
+margin-right: 26px;
+
+}
+.fa-download{
+    color: #938d8d;
+    font-size: 19px;
+
+}
+.fileHeader{
+display: flex;
+justify-content: space-between;
+
+}
+.searchInput{
+    outline: none !important;
+    border: 1px solid #c1c1c1 !important;
+    padding: 8px;
+    border-radius: 5px;
+    margin-left: 30px !important;
+     caret-color: #66afe9;
+     width: 300px;
+     
+
+}
+ .searchInput:focus {
+            border-color: #66afe9; /* 포커스 시 테두리 색상 변경 */
+            box-shadow: 0 0 5px rgba(102, 175, 233, .6); /* 포커스 시 그림자 효과 */
+        }
+.fileBt{
+width:100%;
+   height: 44px !important;
+   border-radius: 10px !important;
+       background-color:#424249 !important;
+    border-color: #424249 !important;
+
+}
+ button:active {
+    box-shadow: inherit !important; /* 클릭 시 그림자 효과 */
+    outline: none !important;
+    border: none !important;
+}   
+button:focus {
+    outline: none !important;  /* 포커스 시 외곽선 없애기 */
+    box-shadow: none !important; /* 포커스 시 그림자 없애기 */
+}
+.searchText{
+	width: 200px;
+	height:40px;
+	border: 1px solid gray;
+	caret-color: #66afe9;
+}
+.col-md-7{
+        width: 100%  !important;  
+        display: flex  !important;  
+        justify-content: center  !important;  
+        
+}
+    .searchText {
+            width: 300px; /* 너비 설정 */
+            padding: 10px; /* 안쪽 여백 */
+            border: 1px solid #ccc; /* 테두리 설정 */
+            border-radius: 4px; /* 테두리 둥글게 */
+            font-size: 16px; /* 폰트 크기 */
+            outline: none; /* 클릭 시 테두리 강조 없애기 */
+            box-sizing: border-box; /* 패딩이 포함된 전체 너비 계산 */
+            min-height: 10px; /* 최소 높이 설정 */
+            word-wrap: break-word; /* 단어가 길면 줄 바꿈 */
+            caret-color: #66afe9; /* 커서 색상 설정 */
+            cursor: text; /* 마우스 커서를 텍스트 커서로 설정 */
+        }
+
+        .searchText:focus {
+            border-color: #66afe9; /* 포커스 시 테두리 색상 변경 */
+            box-shadow: 0 0 5px rgba(102, 175, 233, .6); /* 포커스 시 그림자 효과 */
+        }
+        .fa-magnifying-glass{
+        	position: absolute;
+  			  right: 5%;
+  			  cursor: pointer;
+  			  color: gray;
+        
+        }
+        .searchBar{
+        position: relative;
+        }
+        a{
+        color: inherit !important; }
+        .file.active {
+        
+        display: block;
+        
+        }
+        .file.active {
+        
+        display: block;
+        
+        }
+        .file{
+        display: none;
+        }
+        .nav.active {
+    color: #007bff;
+}
+input[type="file" i] {
+    appearance: none;
+    cursor: default;
+    align-items: baseline;
+    color: inherit;
+    text-overflow: ellipsis;
+    text-align: start !important;
+    padding: initial;
+    border: initial;
+    white-space: pre;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff !important;
+    background-color: #51748b;
+    border-color: #009CFF;
+}
+.fileBox{
+display: flex;
+
+
+}
+ #fileInput {
+            display: none;
+        }
+        .pagebox{
+        width: 100%;
+        display: block;
+        
+        }
+        #divPagingArea{
+        width: 100% !important;
+        display: block !!important; 
+        
+        }
+        .fa-file-image{
+        	color:#dd4f4f;
+        }
+        .fa-file-lines{
+        color:#2f63db;
+        }
+        
+    #down{
+		cursor: pointer;    
+    
+    }
+    #down:active > i{
+    color:#009CFF !important;
+    
+    
+    }
+/*     tr{
+display: flex
+;
+    justify-content: space-around;
+    align-items: center;
+}     */
+</style>
+<body>
+<%@ include file="../../include/header.jsp"%>
+<div class="filecontainer">
+
+<div class="fileside">
+	<h3>파일 보관함</h3>
+	<ul>
+		<li class="fileBox">
+			<input type="file" id="fileInput" name="uploadFiles" multiple>
+         	<button type="button" id="fileBt" class="btn btn-primary fileBt">업로드하기</button>
+		</li>
+		<li class="company nav active" data-nav="common"><i class="fa-solid fa-building icon iconc"></i>회사파일</li>
+		<li class="company nav" data-nav="my"><i class="fa-solid fa-user icon iconh"></i>개인파일</li>
+		<li class="company nav" data-nav="department"><i class="fa-solid fa-users icon"></i>부서파일</li>
+	</ul>
+</div>
+<div class="bg-light rounded h-100 p-4 file active" id="common">
+	<%-- <div>${fileStorageServiceList }</div>
+	<div>${fileStorageVO }</div> --%>
+	<div class="fileHeader">
+	<div>
+		<select name="languages" id="lang">
+		<i class="fas fa-file"></i> 
+		  <option value="javascript">모든파일 </option>
+		  <option value="php">문서</option>
+		  <option value="java">사진/동영상</option>
+	 </select> 
+			<button type="button" id="edit" class="btn btn-primary fileDwBt" onclick="downloadMultiple(event) ">다운로드</button> 
+	</div> 
+			<div class="searchBar">
+			 <input type="text" name="entName" class="updtcon searchInput" placeholder="검색어를 입력해 주세요.">
+				<!-- <div class="searchText" contenteditable="true" >
+					  <span class="placeholder">검색어를 입력해 주세요.</span>
+				</div> -->
+					  <i class="fa-solid fa-magnifying-glass"></i>
+			</div>
+	</div>
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"><input type="checkbox"></th>
+                                        <th scope="col" class="telft">파일명</th>
+                                        <th scope="col">소유자</th>
+                                        <th scope="col">날짜</th>
+                                        <th scope="col">크기</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbdy">
+                          	
+                                </tbody>
+                            </table>
+                <div class="row justify-content-center" id="divPagingArea"></div>
+                        <%--     <center class="flex">
+								<div class="row flexchid" id="divPagingArea">
+									${articlePage.pagingArea}</div>
+							</center> --%>
+                        </div>
+                        
+                        <!--  -->
+                        <div class="bg-light rounded h-100 p-4 file  " id="my">
+	<div class="fileHeader">
+	<div>
+
+		<select name="languages" id="lang">
+		<i class="fas fa-file"></i> 
+		  <option value="javascript">모든파일 </option>
+		  <option value="php">문서</option>
+		  <option value="java">사진/동영상</option>
+	 </select> 
+			<button type="button" id="edit" class="btn btn-primary fileDwBt">다운로드</button> 
+	</div>
+			<div class="searchBar">
+			 <input type="text" name="entName" class="updtcon searchInput" placeholder="검색어를 입력해 주세요.">
+				<!-- <div class="searchText" contenteditable="true" >
+					  <span class="placeholder">검색어를 입력해 주세요.</span>
+				</div> -->
+					  <i class="fa-solid fa-magnifying-glass"></i>
+			</div>
+	</div>
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"><input type="checkbox"></th>
+                                        <th scope="col" class="telft">파일명</th>
+                                        <th scope="col">소유자</th>
+                                        <th scope="col">날짜</th>
+                                        <th scope="col">크기</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row"><input type="checkbox"></th>
+                                        <td class="telft" ><i class="fa-solid fa-file-pdf"></i>파워포인트.pdf</td>
+                                        <td>송중오</td>
+                                        <td>2025-01-03 09:22 </td>
+                                        <td>10MB</td>
+                                        <td ><i class="fa-solid fa-download"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="bg-light rounded h-100 p-4 file  " id="department">
+	<div class="fileHeader">
+	<div>
+		<select name="languages" id="lang">
+		<i class="fas fa-file"></i> 
+		  <option value="javascript">모든파일 </option>
+		  <option value="php">문서</option>
+		  <option value="java">사진/동영상</option>
+	 </select> 
+			<button type="button" id="edit" class="btn btn-primary fileDwBt">다운로드</button> 
+	</div>
+			<div class="searchBar">
+			 <input type="text" name="entName" class="updtcon searchInput" placeholder="검색어를 입력해 주세요.">
+				<!-- <div class="searchText" contenteditable="true" >
+					  <span class="placeholder">검색어를 입력해 주세요.</span>
+				</div> -->
+					  <i class="fa-solid fa-magnifying-glass"></i>
+			</div>
+	</div>
+                            <table class="table table-borderless">
+                                <thead>
+                                 
+                                    <tr>
+                                        <th scope="col"><input type="checkbox"></th>
+                                        <th scope="col" class="telft">파일명</th>
+                                        <th scope="col">소유자</th>
+                                        <th scope="col">날짜</th>
+                                        <th scope="col">크기</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row"><input type="checkbox"></th>
+                                        <td class="telft" ><i class="fa-regular fa-solid fa-file-zipper"></i>집가고싶다.zip</td>
+                                        <td>하잭완</td>
+                                        <td>2025-01-03 09:22 </td>
+                                        <td>500MB</td>
+                                        <td><i class="fa-solid fa-download"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <c:forEach var="fileDetailVO"
+								items="${fileDetailVOList.fileDetailVO}"
+								varStatus="stat">
+								<!-- 왼쪽 영역 시작 FileDetailVO(fileSn=1 -->
+								<tr>
+							<th scope="row">12</th>
+							<td>계약서</td>
+							<td>
+							<button type="button" id="prev" class="btn btn-primary m-2">미리보기</button>
+							<button type="button" id="down" class="btn btn-primary m-2">다운로드</button>
+							</td>
+							</tr>
+								<div class="modal_bgrd"  style="display: none; ">
+								<div class="mgmodal">
+									<div class="delmodal">&times;</div>
+									<div class="mdimg">
+										<img class="img-fluid imgFileSaveLocate"
+											style="cursor: pointer;" src="${fileDetailVO.fileSaveLocate}" 
+											data-file-original-name="${fileDetailVO.fileOriginalName}"
+					                    	 data-file-save-locate="${fileDetailVO.fileSaveLocate}" />
+									</div>
+								</div>
+								</div>
+								<!-- 왼쪽 영역 끝 -->
+							</c:forEach>
+
+</div>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+<script type="text/javascript">
+
+document.addEventListener('DOMContentLoaded', function() {
+	getList(); // 페이지가 로드되면 자동으로 리스트를 불러옴
+});
+	
+    const fileInput = document.getElementById('fileInput');
+    const fileBt = document.getElementById('fileBt');
+    const uploadButton = document.getElementById('uploadButton');
+
+    // '파일 선택' 버튼 클릭 시 파일 입력창 열기
+    fileBt.addEventListener('click', function() {
+        fileInput.click();
+    });
+
+
+    fileInput.addEventListener('change', function() {
+    	console.log("뜨냐~~")
+        if (fileInput.files.length > 0) {
+            // 파일이 선택된 경우, 자동으로 업로드 시작
+            let formData = new FormData();  // 아작스로 파일을 보내려면 무조건!!!
+            //const fileInput = documet.getElementById('fileInput').value;
+            //formData.append('file', fileInput.files[0]);  // 선택된 첫 번째 파일을 업로드
+            let uploadFiles =  $("#fileInput");
+            
+            console.log("업로드파일" ,uploadFiles)
+			// 이미지 파일들을 가져옴 
+			let files = uploadFiles[0].files;
+            console.log("files:" ,files)
+			
+			for(let i = 0; i<files.length ; i++){
+				formData.append("uploadFiles", files[i]);
+				console.log("files : ", files );
+			}
+            
+            let fileURL = "http://localhost:8020/file/insert";
+
+            axios.post(fileURL, formData, {
+        	    headers: { 
+        	        'Content-Type': 'multipart/form-data' // JSON 데이터 전송 시 Content-Type 설정
+        	    }
+        	})
+        	    .then((res) => {
+        	         // 입력 필드 초기화
+        	          getList()
+        	         alert("업로드 성공!");
+        	    })
+        	    .catch(function (error) {
+        	       alert("실패");
+        	       });
+        }
+    }); 
+    
+    function getList(currentPage, keyword) {
+        let data = {
+            "currentPage": currentPage,
+            "keyword": keyword
+        };
+
+        console.log("data : ", data);
+        let url = "http://localhost:8020/file/listAxios";
+
+        // POST 요청에서 body로 데이터를 전달
+        axios.post(url, data)  // axios는 자동으로 JSON 형식으로 변환해서 전달
+        .then(function(response) {
+            console.log("articlePage : ", response.data);  // 전체 응답 데이터 확인
+            console.log("articlePage.content : ", response.data.content);  // 실제 콘텐츠 출력
+            let fileList = response.data.content;
+
+            // content 데이터가 있을 경우 처리
+            let str = ""; // 이 변수는 루프 밖에서 정의해야 외부에서 사용 가능
+
+            for (let i = 0; i < fileList.length; i++) {
+                let fileContent = fileList[i];
+
+                console.log("파일이름 : ", fileContent);
+                console.log("파일그룹 : ", fileContent.fileGroupVO);
+                console.log("파일세부 : ", fileContent.fileGroupVO.fileDetailVOList[0].fileSaveName);
+                let fileVOList = fileContent.fileGroupVO.fileDetailVOList[0];
+                let fileSaveDate = new Date(fileVOList.fileSaveDate);
+                let formattedDate = fileSaveDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+                // 아이콘 클래스를 확장자에 따라 설정
+                let iconClass = 'fa-file';  // 기본 아이콘
+                //<i class="fa-solid fa-file-excel"></i>
+                // 확장자에 따른 아이콘 변경
+                if (fileVOList.fileExt === 'xlsx') {
+                    iconClass = 'fa-file-excel';
+                } else if (fileVOList.fileExt === 'pdf') {
+                    iconClass = 'fa-file-pdf';
+                } else if (fileVOList.fileExt === 'jpg' || fileVOList.fileExt === 'jpeg' ||fileVOList.fileExt === 'jfif'
+                			||fileVOList.fileExt === 'PNG'||fileVOList.fileExt === 'JPG') {
+                    iconClass = 'fa-file-image';
+                } else if (fileVOList.fileExt === 'png') {
+                    iconClass = 'fa-file-image';
+                }else if (fileVOList.fileExt === 'odt') {
+                    iconClass = 'fa-file-lines';
+                }else if (fileVOList.fileExt === 'csv') {
+                    iconClass = 'fa-file-csv';
+                }
+                //<i class="fa-solid fa-file-lines"></i><i class="fa-solid fa-file-csv"></i>
+                // HTML 테이블 행 생성
+                str += `
+                	<tr>
+                    <th scope="row"><input type="checkbox" class="file-checkbox"></th>
+                    <td class="telft">
+                        <i class="fa-solid \${iconClass}"></i>
+                        \${fileVOList.fileOriginalName}
+                    </td>
+                    <td>양막앙</td>
+                    <td style="display:none;">\${fileVOList.fileExt}</td>
+                    <td>\${formattedDate}</td>
+                    <td>\${fileVOList.fileFancysize}</td>
+                    <td data-file-original-name="\${fileVOList.fileOriginalName}"
+                        data-file-save-locate="\${fileVOList.fileSaveLocate}"
+                        id="down" onclick="download(event)">
+                        <i class="fa-solid fa-download"></i>
+                    </td>
+                </tr>
+
+                `;
+            }
+         
+
+            // 결과를 HTML 테이블에 추가
+            let tbdy = document.querySelector("#tbdy");
+            tbdy.innerHTML = str;
+
+            console.log(str);
+
+            // 페이지 처리 영역 (pagingArea)도 업데이트
+            $("#divPagingArea").html(response.data.pagingArea);
+            console.log("페이징", response.data.pagingArea);
+        })
+        .catch(function(error) {
+            console.error('Error:', error);  // 에러 로그 출력
+        });
+    }
+    function download(event){
+    	//let down = document.querySelector("#down")
+    	let down = event.target.closest("td");  // 클릭된 <td> 요소를 찾음
+    	let fileSaveLocate = down.dataset.fileSaveLocate;
+        console.log("파일경로",fileSaveLocate)
+    	location.href="/download?fileName="+fileSaveLocate;
+    	//ㄴlocation.href=fileSaveLocate;
+    	
+   	return;
+    	
+    	
+    }
+    function downloadMultiple(event) {
+        let filePaths = [];
+        
+        // 선택된 해당 체크박스들의 경로를 배열에 추가 
+        document.querySelectorAll('.file-checkbox:checked').forEach(checkbox => {
+            let tr = checkbox.closest("tr"); 
+            let td = tr.querySelector('td[data-file-save-locate]');  // data-file-save-locate' 를 찾음
+            if (td) {
+                let fileSaveLocate = td.dataset.fileSaveLocate;  // 해당 파일 경로
+                filePaths.push(fileSaveLocate);  // 배열에 추가
+            }
+        });
+        
+        // 파일 선택 안했을시에 alert
+        if (filePaths.length === 0) {
+            alert("파일을 선택해 주세요.");
+            return;
+        }
+        
+        console.log("선택 파일 :", filePaths);
+        
+        // 여러 파일 경로를 URL로 전달
+        location.href = "/downloadMulti?fileNames=" + encodeURIComponent(filePaths.join(","));
+    }
+
+
+	   
+    $(document).on("click",".clsPagingArea",function(){
+		// 클릭한 것은 하나
+		// <a .. data-current-page="2" data-keyword="".. class="page-link clsPagingArea">2</a>
+		let currentPage = $(this).data("currentPage");
+		let keyword = $(this).data("keyword");
+		
+		console.log("currentPage :" + currentPage);
+		console.log("keyword :" + keyword);
+		
+		// 회원 목록 호출
+		getList(currentPage,keyword);
+		
+	
+	})
+$(document).ready(function() {
+    // 탭 클릭 시 동작
+    $('.nav').click(function(e) {
+        e.preventDefault();
+        // 탭 전환 로직
+    });
+});
+$('.nav').click(function() {
+    // 탭 활성화 상태 변경
+    $('.nav').removeClass('active');
+    $(this).addClass('active');
+    
+    // 컨텐츠 전환
+    const navId = $(this).data('nav');  // data-nav 값을 가져옴
+    $('.file').removeClass('active');  // 모든 파일을 비활성화
+    $('#' + navId).addClass('active');  // 해당 콘텐츠만 활성화
+});
+$('.sBtn').click(function () {
+    $('html, body').animate({
+      scrollTop: $($.attr(this, 'href')).offset().top
+    }, 500);
+    return false;
+  });
+</script>
+<script src="/dash/js/main.js"></script>
+<script type="text/javascript" src="/dash/lib/chart/chart.min.js"></script>
+<script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
+<%@ include file="../../include/footer.jsp"%>
+
+<!-- 메인 컨텐츠 영역 끝 -->

@@ -1,0 +1,331 @@
+<%@page import="java.util.Locale"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@page import="java.util.Date" %>
+<%@page import="java.text.SimpleDateFormat" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+
+
+
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<jsp:include page="../include/preScript.jsp"></jsp:include>
+<style>
+.myWork{
+width: 90%;
+height: 35vh;
+margin: 0 auto ;
+border-radius: 20px;
+margin-top:1%;
+box-shadow: 5px 5px 10px #000000a6;
+
+}
+.deptWork{
+width: 90%;
+height: 40vh;
+margin: 0 auto ;
+border-radius: 20px;
+margin-top:1%;
+box-shadow: 5px 5px 10px #000000a6;
+}
+.state1{
+  width: 50px;
+    height: 30px;
+    background-color: #d8fdd6b8;
+    border-radius: 5px;
+    text-align: center;
+    color: #0b4b22;
+    font-weight: bold;
+    display: flex
+;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border: 1px solid #0b4b22;
+    margin: 10px;
+        font-size: 14px;
+
+
+}
+.state0{
+  width: 50px;
+    height: 30px;
+    background-color: #d6f6fdb8;
+    border-radius: 5px;
+    text-align: center;
+    color: #123e77;
+    font-weight: bold;
+    display: flex
+;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border: 1px solid #123e77;
+    margin: 10px;
+    font-size: 15px !important;
+
+}
+.state2{
+    width: 50px;
+    height: 30px;
+    background-color: #ffe2e2b8;
+    border-radius: 5px;
+    text-align: center;
+    color: #ed4444;
+    font-weight: bold;
+    display: flex
+;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border:1px solid #ed4444;
+    margin: 10px;
+        font-size: 15px;
+
+}
+.telft{
+display: flex
+;
+    justify-content: center;
+}
+tr {
+    height: 20px;
+    border: white !important;
+    width: 100%;
+    vertical-align: middle;
+    
+    }
+    .table {
+    text-align: center;
+    }
+    .a{
+    font-weight: bold;
+    color:#555353;
+    
+    }
+    .flexcont{
+    max-width: 1900px;
+    
+    }
+    h3{
+    
+    margin:2% 5% 2% 5% !important;
+    font-weight: normal !important;
+    
+    }
+   .headerFlex{
+    	    display: flex
+;
+    align-items: center;
+}
+    }
+    .fileBt3{
+    	height:10px !important;
+    	margin-right:20% !important;
+    
+    }
+    .tbHeader{
+    	font-weight:inherit;
+    	text-align: center;
+    
+    }
+    .tbFlex{
+    	    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom:1%;
+
+    	
+    
+    }
+    #workBt{
+    	height: 37px !important;
+    	border-radius: 5px;
+    	outline: none !important;
+    	border: none !important;
+    	background-color:#009CFF ;
+    	color:white;
+    	margin-right:3%;
+    	width: 90px;
+    
+    }
+</style>
+
+<%@ include file="../include/header.jsp"%>
+<div class="flexcont">
+	<div class=" headerFlex">
+		<h3>업무 리스트</h3>
+		
+	</div>
+	<div class="myWork">
+		<div class="bg-light rounded h-100 p-4 file" id="account">
+	<%-- <div>${fileStorageServiceList }</div>
+	<div>${fileStorageVO }</div> --%>
+	<div class="fileHeader">
+	
+			
+	</div>
+			<div class="tbFlex">
+				<h5 class="tbHeader">내 업무 리스트</h5>
+				<button type="button" id="workBt"  class="fileBt3" onclick="deptfileBt()">업무등록</button>
+			</div>
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">상태</th>
+                                        <th scope="col">업무명</th>
+                                        <th scope="col">담당자</th>
+                                        <th scope="col">시작일</th>
+                                        <th scope="col">종료일</th>
+                                        <th scope="col">진행률</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mytbody" class="trflex">
+                                </tbody>
+                            </table>
+                <div class="row justify-content-center" id="divPagingArea"></div>
+                 </div>
+	
+	
+	
+	</div>
+	<div class="deptWork">
+			<div class="bg-light rounded h-100 p-4 file" id="account">
+	<%-- <div>${fileStorageServiceList }</div>
+	<div>${fileStorageVO }</div> --%>
+	<div class="fileHeader">
+	
+			
+	</div>	<div class="tbFlex">
+				<h5 class="tbHeader">부서 업무 리스트</h5>
+				<button type="button" id="workBt"  class="fileBt3" onclick="deptfileBt()">업무등록</button>
+			</div>
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">상태</th>
+                                        <th scope="col">업무명</th>
+                                        <th scope="col">담당자</th>
+                                        <th scope="col">시작일</th>
+                                        <th scope="col">종료일</th>
+                                        <th scope="col">진행률</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbdy" class="trflex">
+                          			 <tr >
+                                        <th scope="row">1</th>
+                                        <td class="telft" ><div class="state2">긴급</div></td>
+                                        <td><a href="" class="a">팀 간 실시간 채팅</a></td>
+                                        <td>하잭완</td>
+                                        <td>2025-01-03 </td>
+                                        <td>2025-01-03 </td>
+                                        <td>50%</td>
+                                    </tr>
+                          			 <tr >
+                                        <th scope="row">1</th>
+                                        <td class="telft" ><div class="state2">긴급</div></td>
+                                        <td><a href="" class="a">팀 간 실시간 채팅</a></td>
+                                        <td>하잭완</td>
+                                        <td>2025-01-03 </td>
+                                        <td>2025-01-03 </td>
+                                        <td>50%</td>
+                                    </tr>
+                          			 <tr >
+                                        <th scope="row">1</th>
+                                        <td class="telft" ><div class="state2">긴급</div></td>
+                                        <td><a href="" class="a">팀 간 실시간 채팅</a></td>
+                                        <td>하잭완</td>
+                                        <td>2025-01-03 </td>
+                                        <td>2025-01-03 </td>
+                                        <td>50%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                <div class="row justify-content-center" id="divPagingArea"></div>
+                 </div>
+	
+	
+	
+	</div>
+
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+myWorkList()
+function myWorkList(currentPage,keyword){
+	let data = {
+		     currentPage: currentPage,
+	         keyword: keyword
+	 	}
+	let url = "/work/proj"
+	axios.post(url,data)
+	.then(function(res){
+		console.log("체ㅡㅋ응",res)
+		let content = res.data.content;
+		
+		let mytbody = document.querySelector("#mytbody");
+		let str = ""
+		for(let i =0; i<content.length; i++){
+			let list = content[i]
+			let stateClass = 'state0';
+			let taskStatus = "";
+			 if (list.taskStatus === '0') {
+                 iconClass = 'state0';
+                 taskStatus = "완료"
+                 
+             } else if (list.taskStatus === '1') {
+                 iconClass = 'state1';
+                 taskStatus = "진행중"
+             } else if (list.taskStatus === '2') {
+                 iconClass = 'state2';
+                 taskStatus = "긴급"
+             }
+			
+			
+			console.log("체킁 리스트" , list)
+				str +=`	
+				<tr >
+                    <th scope="row">1</th>
+                    <td class="telft" ><div class="\${iconClass}">\${taskStatus}</div></td>
+                    <td><a href="" class="a"><a href="" class="a">\${list.taskType}</a></a></td>
+                    <td>하잭완</td>
+                    <td>2025-01-03 </td>
+                    <td>2025-01-03 </td>
+                    <td>50%</td>
+                </tr>
+		`
+				
+				
+				
+			
+		}
+		
+		mytbody.innerHTML = str
+		
+		console.log("에스티알체킁" ,str1)
+	}).catch(function(error){
+		
+	})
+	
+	
+	
+	
+	
+	
+}
+
+</script>
+<script src="/dash/js/main.js"></script>
+<script type="text/javascript" src="/dash/lib/chart/chart.min.js"></script>
+<script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
+<%@ include file="../include/footer.jsp"%>
+
+
+<!-- 메인 컨텐츠 영역 끝 -->

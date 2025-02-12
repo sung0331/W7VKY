@@ -1,0 +1,120 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>  
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+    .expense-container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 2px solid #000;
+        font-family: Arial, sans-serif;
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+    }
+    th, td {
+        border: 1px solid #000;
+        padding: 10px;
+        text-align: left;
+    }
+    th {
+        background-color: #f4f4f4;
+        text-align: center;
+    }
+    .approval-section {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .approval-box {
+        border: 1px solid #000;
+        width: 30%;
+        text-align: center;
+        padding: 10px;
+    }
+    .btn-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .btn {
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<%@ include file="../include/header.jsp" %>
+
+<div class="expense-container" id="expenseReport">
+    <h2>지출 결의서</h2>
+
+    <table>
+        <tr>
+            <th>성명</th>
+            <td>홍길동</td>
+            <th>부서</th>
+            <td>영업팀</td>
+        </tr>
+        <tr>
+            <th>직책</th>
+            <td>과장</td>
+            <th>신청인</th>
+            <td>홍길동</td>
+        </tr>
+        <tr>
+            <th>지출 금액</th>
+            <td colspan="3">500,000원</td>
+        </tr>
+        <tr>
+            <th>제목</th>
+            <td colspan="3">출장 경비</td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td colspan="3">2025년 1월 15일 부산 출장 관련 교통비 및 숙박비</td>
+        </tr>
+        <tr>
+            <th>비고</th>
+            <td colspan="3">영수증 첨부</td>
+        </tr>
+        <tr>
+            <th>신청 날짜</th>
+            <td colspan="3">2025-01-20</td>
+        </tr>
+    </table>
+
+    <div class="approval-section">
+        <div class="approval-box">신청인<br><br>홍길동</div>
+        <div class="approval-box">부서장<br><br>결재</div>
+        <div class="approval-box">대표이사<br><br>승인</div>
+    </div>
+
+    <div class="btn-container">
+        <button class="btn" onclick="downloadPDF()">PDF 저장</button>
+    </div>
+</div>
+
+<script>
+    function downloadPDF() {
+        const element = document.getElementById('expenseReport');
+        html2pdf().from(element).save("지출결의서.pdf");
+    }
+</script>
+
+<%@ include file="../include/footer.jsp" %>

@@ -1,0 +1,10 @@
+package kr.or.ddit.board.vo;
+
+import lombok.Data;
+
+@Data
+public class BoardTypeVO {
+
+	private int bodTypeNo;
+	private String bodTypeName; // 1:공지 2:부서 3:QnA
+}

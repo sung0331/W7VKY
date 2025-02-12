@@ -1,0 +1,20 @@
+package kr.or.ddit.workspace.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+@RequestMapping("/work")
+@Controller
+public class WorkDashController {
+
+	
+	@GetMapping("/workDash")
+	public String workDashboard() {
+		return "workspace/work";
+		
+		
+		
+	}
+}

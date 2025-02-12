@@ -1,0 +1,22 @@
+package kr.or.ddit.clubCom.vo;
+
+import kr.or.ddit.club.vo.ClubVO;
+import kr.or.ddit.community.vo.CommunityVO;
+import lombok.Data;
+
+@Data
+public class ClubComVO {
+
+	
+	// CommunityVO
+	private int comNo;// 커뮤니티번호
+	private CommunityVO communityVO;
+	
+	// ClubVO
+	private int clubNo;// 동호회번호
+	private ClubVO clubVo;
+	
+	// ClubComTypeVO
+	private int clubComTypeNo;// 동호회게시판 타입번호
+	private ClubComTypeVO clubComTypeVO;
+}

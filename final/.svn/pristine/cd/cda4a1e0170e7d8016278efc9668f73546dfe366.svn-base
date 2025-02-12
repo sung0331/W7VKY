@@ -1,0 +1,353 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Noto Sans KR", serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	font-family: Arial, sans-serif;
+}
+
+.content {
+	width: 96%;
+	margin-left: auto !important;
+	margin-top: 100px;
+	padding: 20px;
+	height: 96%;
+}
+/* 헤더 스타일 */
+.header {
+	background-color: #ffffff;
+	color: rgb(22, 22, 22);
+	padding: 15px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	height: 80px;
+	left: 0;
+	z-index: 1001;
+	box-shadow: 0px 5px 4px #00000040;
+}
+
+.submenu-toggle:active>span, .sub-menu  a:active {
+	color: rgb(0, 156, 255) !important;
+}
+
+a:active, span:active {
+	color: rgb(0, 156, 255) !important;
+	font-weight: bold;
+}
+
+.logo {
+	color: rgb(0, 156, 255) !important;
+	font-size: 35px;
+	font-weight: bold;
+	font-family: "Quicksand", serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+	font-weight: 600;
+	margin: 20px;
+}
+/*      .logo {
+            color: rgb(0, 156, 255) !important;
+            font-size: 35px;
+            font-family: "Raleway";
+            font-optical-sizing: auto;
+            font-style: normal;
+            font-weight: 500;
+            margin: 20px;
+        }  */
+.header-right {
+	display: flex;
+	align-items: center;
+	margin-right: 1%;
+}
+
+.header-right>a {
+	color: rgb(22, 22, 22);
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex
+;
+    align-items: center;
+}
+.header-right>a >i {
+	padding: 10px;
+	
+	
+}
+.header-right a:hover {
+	color: #ddd;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #ffffff;
+	min-width: 160px;
+	top: 100%;
+	box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 5px;
+}
+
+.dropdown-content a {
+	color: rgb(22, 22, 22);
+	text-decoration: none;
+	display: block;
+	padding: 10px;
+	text-align: center;
+}
+
+.dropdown-content a:hover {
+	background-color: #e8e8e8;
+	color: black;
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+	height: 93.3%;
+	width: 80px;
+	position: fixed;
+	top: 6.7%;
+	background-color: #ffffff;
+	overflow-x: hidden;
+	transition: 0.3s;
+	padding-top: 37px;
+	z-index: 1000;
+	border-right: 1px solid gainsboro;
+	box-shadow: inset 3px -17px 10px -10px rgb(0 0 0/ 25%)
+}
+.dropdown-toggle:after{
+	display:none;
+	
+	
+}
+.sidebar.open {
+	left: 0;
+	width: 250px;
+}
+
+.sidebar a {
+	margin: 15px 15px;
+	text-decoration: none;
+	font-size: 17px;
+	color: rgb(22, 22, 22);
+	display: flex;
+	align-items: center;
+	transition: color ease-out 0.1s !important;
+}
+
+.menu-icon {
+	font-size: 1rem;
+}
+
+.menu-text {
+	transition: color ease-out 0.1s !important;
+}
+
+.sidebar.open .menu-text {
+	display: inline-block;
+}
+
+.sidebar:not(.open) .menu-text {
+	display: none;
+}
+
+.sub-menu {
+	display: none;
+	padding-left: 20px;
+	overflow: hidden;
+	height: 0;
+	transition: height 0.3s ease-out;
+}
+
+.sub-menu  a:hover {
+	background-color: #ebebeb;
+}
+
+.sub-menu>a {
+	padding: 8px 20px 8px 20px;
+	color: rgb(22, 22, 22);
+	margin: 0;
+	width: 200px;
+}
+
+.sidebar a.active+.sub-menu {
+	display: block;
+	height: auto;
+	transition: height 0.3s ease-in;
+}
+
+.sidebar .sub-menu a {
+	font-size: 16px;
+}
+
+/* 메뉴 버튼 스타일 */
+.menu-btn {
+	font-size: 22px;
+	background-color: rgb(0, 156, 255) !important;
+	color: rgb(255, 255, 255);
+	border: none;
+	cursor: pointer;
+	padding: 12px;
+	position: fixed;
+	top: 12%;
+	left: 4.2%;
+	width: 50px;
+	font-weight: bold;
+	z-index: 1200;
+	transition: left 0.3s ease;
+	border-radius: 2px;
+}
+
+.menu-btn.open {
+	left: 250px;
+}
+
+.menu-btn:hover {
+	background-color: #444;
+}
+
+/* 오버레이 스타일 */
+.overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	z-index: 999;
+}
+
+.overlay.open {
+	display: block;
+}
+
+/* 콘텐츠 스타일 */
+
+/* 관리자 전용 항목 */
+#adminMenu {
+	display: none;
+}
+
+/* 헤더 내 네비게이션 */
+nav a {
+	color: rgb(22, 22, 22);
+	text-decoration: none;
+	margin-left: 20px;
+	font-size: 16px;
+}
+
+/* 왼쪽 헤더 부분 */
+.leftHeader {
+	display: flex;
+	align-items: center;
+}
+
+span i {
+	font-size: 1.8rem;
+	margin: 10px;
+	color: rgb(58, 57, 57);
+	font-style: normal;
+	font-weight: normal !important;
+	font-weight: lighter;
+	display: flex;
+}
+
+i:active, #hdicon:active {
+	color: rgb(0, 156, 255) !important;
+}
+
+.submenu-toggle:hover {
+	background-color: #ebebeb;
+}
+
+.submenu-toggle {
+	border-radius: 2px;
+}
+
+.sideMenu {
+	color: beige;
+}
+
+#hdicon {
+	font-size: 1.7rem ;
+	color: rgb(33, 33, 33) !important;
+}
+
+#notificationDropdown {
+	right: 6%;
+}
+
+#messageDropdown {
+	right: 2.5%;
+}
+
+#profileDropdown {
+	right: 1%;
+}
+
+::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+}
+
+::-webkit-scrollbar-track {
+	background: #ffffff;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #ffffff;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #d0d0d0;
+}
+
+.jojic {
+	background-color: #444;
+}
+
+#employeeModeBtn {
+	color: rgb(0, 156, 255);
+	font-weight: bold;
+}
+
+
+.proIcon{
+	font-size: 2.5rem !important;
+	
+	
+}
+.logOut{
+	text-align: center;
+	padding:10px;
+	
+	
+}
+#pro{
+	background-color: red;
+    border-radius: 50%;
+    display: flex
+;
+	height: 60px;
+    width: 64px;
+    align-items: center;
+    justify-content: center;
+background-color: #f7f7f7;
+	
+}

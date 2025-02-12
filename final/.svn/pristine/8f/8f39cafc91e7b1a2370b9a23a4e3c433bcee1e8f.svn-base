@@ -1,0 +1,36 @@
+package kr.or.ddit.websocketalarm;
+
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.member.vo.MemberVO;
+import kr.or.ddit.security.CustomUser;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+public class AlarmController {
+	
+	@ResponseBody
+	@GetMapping("/alarm")
+	public String alarmPage(@RequestParam int empNo) {
+		
+		//UserDetailServiceImpl->CustomUser
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		CustomUser userDetails = (CustomUser)principal; 
+		log.info("commuteList->userDetails : " + userDetails.getMember());
+		MemberVO memberVO = userDetails.getMember();
+		empNo = memberVO.getEmpNo();
+		log.info("commuteList->memberVO : " + memberVO);
+		log.info("empNo :" + empNo);
+		
+		return "alarm";
+	}
+
+}

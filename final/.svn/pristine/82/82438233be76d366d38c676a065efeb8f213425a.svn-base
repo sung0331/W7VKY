@@ -1,0 +1,29 @@
+package kr.or.ddit.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import kr.or.ddit.member.service.MemberService;
+import kr.or.ddit.member.vo.MemberVO; // 올바른 VO 클래스 경로를 확인하세요.
+
+@Controller
+public class MainController {
+	@Autowired
+	private MemberService memberService;
+	
+	@GetMapping("/main")
+	public String main(Model model, MemberVO memberVO) {
+
+		return "main";
+	}
+	@GetMapping("/adminmain")
+	public String adminmain(Model model, MemberVO memberVO) {
+		
+		return "adminmain";
+	}
+}

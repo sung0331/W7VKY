@@ -1,0 +1,13 @@
+package kr.or.ddit.clubCom.service.Impl;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.club.service.Impl.ClubServiceImpl;
+import kr.or.ddit.clubCom.service.iClubComService;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class ClubComServiceImpl implements iClubComService{
+
+}

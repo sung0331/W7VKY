@@ -1,0 +1,62 @@
+package kr.or.ddit.websocketalarm.controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.member.vo.MemberVO;
+import kr.or.ddit.security.CustomUser;
+import kr.or.ddit.websocketalarm.service.AlarmService;
+import kr.or.ddit.websocketalarm.vo.AlarmVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Controller
+public class AlarmController {
+	
+	@Autowired
+	AlarmService alarmService;
+	
+//	@Autowired
+//	private SampleWebSocketHandler webSocketHandler;
+		
+	@ResponseBody	
+	@PostMapping("/alarmInsert")
+    public int saveAlarm(AlarmVO alarm) {
+		
+		int result = alarmService.saveAlarm(alarm);
+		
+//		if (result > 0) {
+//            // WebSocket을 통해 실시간 알림 전송
+//			webSocketHandler.sendMessageToUser(alarm.getEmpNo(), alarm.getAlarmMessage());
+//        }
+		
+		return result;
+    	
+    }
+	
+	@ResponseBody
+	@GetMapping("/alarm")
+	public String alarmPage(@RequestParam int empNo) {
+		
+		//UserDetailServiceImpl->CustomUser
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		CustomUser userDetails = (CustomUser)principal; 
+		log.info("commuteList->userDetails : " + userDetails.getMember());
+		MemberVO memberVO = userDetails.getMember();
+		empNo = memberVO.getEmpNo();
+		log.info("commuteList->memberVO : " + memberVO);
+		log.info("empNo :" + empNo);
+		
+		return "alarm";
+	}
+	
+	
+	
+
+}

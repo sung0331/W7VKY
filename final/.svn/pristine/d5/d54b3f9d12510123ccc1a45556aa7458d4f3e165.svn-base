@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.workspace.mapper.WorkSpaceMapper">
+
+	<select id="myWorklist"
+		resultType="kr.or.ddit.workspace.vo.WorkSpaceVO"
+		parameterType="hashMap">
+		     SELECT * 
+                FROM PROJ PJ INNER JOIN PROJ_MASTER PM
+                ON PJ.PROJ_NO = PM.PROJ_NO
+                INNER JOIN TASK TK 
+                ON PJ.PROJ_NO = TK.PROJ_NO
+                AND PM.DEPT_NO = #{deptNo}
+                AND TK.EMP_NO = #{empNo}
+		
+		</select>
+		<select id="getTotal" parameterType="hashMap" resultType="int">
+		
+		SELECT count(*) 
+                FROM PROJ PJ INNER JOIN PROJ_MASTER PM
+                ON PJ.PROJ_NO = PM.PROJ_NO
+                INNER JOIN TASK TK 
+                ON PJ.PROJ_NO = TK.PROJ_NO
+                AND PM.DEPT_NO = #{deptNo}
+                AND TK.EMP_NO = #{empNo}
+		
+		
+		</select>
+		
+		<select id="projTotal" parameterType="kr.or.ddit.workspace.vo.WorkSpaceVO" resultType="kr.or.ddit.workspace.vo.WorkSpaceVO">
+			    SELECT 
+                 COUNT(CASE WHEN PM.PROJ_STATE = 0 THEN 1 END) AS CONCLUDED, 
+			    COUNT(CASE WHEN PM.PROJ_STATE = 1 THEN 1 END) AS INPROGRESS,
+			    COUNT(CASE WHEN PM.PROJ_STATE = 2 THEN 1 END) AS COMPLETED,
+			    COUNT(PM.PROJ_STATE) TOTAL
+                FROM PROJ PJ INNER JOIN PROJ_MASTER PM 
+                ON PJ.PROJ_NO = PM.PROJ_NO 
+			    AND PM.DEPT_NO = #{deptNo}
+		
+		</select>
+		
+
+
+</mapper>

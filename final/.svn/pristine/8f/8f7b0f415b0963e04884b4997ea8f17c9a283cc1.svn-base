@@ -1,0 +1,116 @@
+package kr.or.ddit.workspace.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.or.ddit.member.vo.MemberVO;
+import kr.or.ddit.security.CustomUser;
+import kr.or.ddit.util.ArticlePage;
+import kr.or.ddit.workspace.service.WorkSpaceService;
+import kr.or.ddit.workspace.vo.FileStorageVO;
+import kr.or.ddit.workspace.vo.WorkSpaceVO;
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
+@RequestMapping("/work")
+@Controller
+public class WorkDashController {
+
+	@Autowired
+	WorkSpaceService workSpaceService;
+	
+	
+	@GetMapping("/workDash")
+	public String workDashboard() {
+		return "workspace/work";
+		
+	}
+	@ResponseBody
+	@PostMapping("/proj")
+	public ArticlePage<WorkSpaceVO> projectDash(@RequestBody  WorkSpaceVO workSpaceVO, Map<String,Object>map ) {
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		CustomUser userDetails = (CustomUser)principal; 
+		log.info("commuteList->userDetails : " + userDetails.getMember());
+		
+		MemberVO memberVO = userDetails.getMember();
+		int empNo = memberVO.getEmpNo();
+		int deptNo  = memberVO.getDeptNo();
+		
+
+		
+		// 1) currentPage
+		int currentPage = 1; // 1페이지로 잡아놓기
+		if (map.get("currentPage") != null) {
+			// null .toString() 은 오류 발생
+			currentPage = Integer.parseInt(map.get("currentPage").toString());
+		}
+
+		// 2) keyword
+		String keyword = ""; // 검색어가 없는 것이 기본
+
+		if (map.get("keyword") != null) {
+			// null . toString() 은 오류 발생
+			keyword = map.get("keyword").toString();
+		}
+		int total = this.workSpaceService.getTotal(map);
+		
+		
+	    map.put("currentPage", currentPage);
+	    map.put("keyword", keyword);
+	    map.put("deptNo", deptNo);
+	    map.put("empNo", empNo);
+	    
+	    log.debug("map {} 체킁" + map);
+	    
+		List<WorkSpaceVO>workVOList = this.workSpaceService.myWorklist(map);
+		ArticlePage<WorkSpaceVO> articlePage = new ArticlePage<WorkSpaceVO>(total, currentPage, 10, workVOList, keyword,"ajax");
+		//log.debug("fileVOList {} "+fileVOList);
+
+		
+		
+		// 데이터 리턴 -> ResponseBody(Object -> String ) = Serialize
+		return articlePage;
+		
+		
+		
+		
+	}
+	
+	@ResponseBody
+	@GetMapping("/projTotal") 
+	public WorkSpaceVO projTotal() {
+		WorkSpaceVO workSpaceVO = new WorkSpaceVO();
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		CustomUser userDetails = (CustomUser)principal; 
+		log.info("commuteList->userDetails : " + userDetails.getMember());
+		
+		MemberVO memberVO = userDetails.getMember();
+		int empNo = memberVO.getEmpNo();
+		int deptNo  = memberVO.getDeptNo();
+		
+		log.info("체킁" + deptNo);
+		
+		return this.workSpaceService.projTotal(deptNo);
+		
+		
+		
+	}
+	@GetMapping("/projWorkspace")
+	public String projWorkspace() {
+		return "workspace/projWorkspace";
+		
+		
+	}
+}
